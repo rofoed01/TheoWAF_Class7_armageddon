@@ -1,0 +1,49 @@
+Add a stage after running gates:
+
+    ./run_all_gates.sh
+    ./rollup_gates.sh
+    ./summarize_gates.sh || true
+    cat pr_comment.md
+
+summarize_gates.sh || true means: even if jq isn’t installed, the build doesn’t crash.
+The build still fails correctly based on run_all_gates.sh exit code.
+
+
+A) Combined failure roll-up into gate_result.json
+
+rollup_gates.sh (jq required) : https://github.com/BalericaAI/armageddon/blob/main/SEIR_Foundations/jenkins/puython/rollup_gates.sh
+
+How to use
+
+        ./run_all_gates.sh
+        ./rollup_gates.sh
+        cat gate_result.json | jq '.rollup.failures'
+
+B) Small jq-based summarizer (clean output)
+
+summarize_gates.sh  : https://github.com/BalericaAI/armageddon/blob/main/SEIR_Foundations/jenkins/puython/summarize_gates.sh
+
+How to use
+
+        ./run_all_gates.sh
+        ./rollup_gates.sh
+        ./summarize_gates.sh
+
+How to connect to Jenkins (simple + clean)
+
+Add a stage after running gates:
+
+        ./run_all_gates.sh
+        ./rollup_gates.sh
+        ./summarize_gates.sh || true
+        cat pr_comment.md
+
+summarize_gates.sh || true means: even if jq isn’t installed, the build doesn’t crash.
+The build still fails correctly based on run_all_gates.sh exit code.
+
+
+
+
+
+
+
